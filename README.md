@@ -1,8 +1,10 @@
 # 文件资料库
 
-DeepSeek Harness 自制插件 `@local/dsh-file-library`，当前插件版本 **1.0.0**。
-本仓库独立保存源码、必要资源和可离线运行的回归检查。
-整理基于本机 **DeepSeek Harness 0.2.1-rc.5** 使用的源码快照。
+集中管理 DeepSeek Harness 的会话附件和上传文件，查找原件与工作区副本，并快速添加到对话。
+
+插件：`@local/dsh-file-library` · 版本：**1.0.0**
+
+适用版本：**DeepSeek Harness 0.2.1-rc.5**。
 
 ## 功能与数据
 
@@ -21,7 +23,7 @@ DeepSeek Harness 自制插件 `@local/dsh-file-library`，当前插件版本 **1
 
 ## 安装
 
-克隆此私有仓库到固定目录后，在仓库根目录打开 PowerShell：
+克隆仓库到固定目录后，在仓库根目录打开 PowerShell：
 
 ```powershell
 $dsh = Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\resources\runtime\cli\bin\dsh.cmd'
@@ -31,7 +33,6 @@ $dsh = Join-Path $env:LOCALAPPDATA 'Programs\DeepSeek Harness\resources\runtime\
 如 Harness 安装在其他位置，把 `$dsh` 改为对应 CLI 路径。插件使用 DSH
 提供的服务，无需自行安装 React 或其他前端运行依赖。安装后刷新页面；涉及
 原生启动配置时完整重启桌面程序。使用其他 profile 时替换 `desktop`。
-本次整理未将这些副本重新安装进正在运行的 DSH。
 
 卸载：
 
@@ -48,9 +49,8 @@ npm test
 npm pack --dry-run
 ```
 
-检查使用本地代码、模拟服务或临时目录，不需要账户密钥。测试只证明相应离线
-行为；从这些独立仓库重新安装后的桌面界面尚未验证。
-`tests/` 中保留整理前已有的回归检查，并将路径改为仓库内路径。
+`tests/` 包含使用本地代码、模拟服务或临时目录的离线回归检查，无需账户密钥。
+这些检查不覆盖安装后的完整桌面交互，界面兼容性需在对应 Harness 版本中确认。
 
 ## 目录
 
@@ -58,9 +58,3 @@ npm pack --dry-run
 - `package.json`、`cordis.patch.yml`：DSH bundle 元数据与加载配置。
 - `tests/`：可复跑检查。
 - `client.js`、`locale/`、`icon.svg`：客户端页面和界面资源。
-
-## 整理记录
-
-2026-11-04：从当前工作目录独立归档，补全安装与验证说明、忽略规则和仓库元数据。
-业务实现保持当前版本，整理差异见 `CHANGELOG.md`。GitHub 仓库设为私有；
-`package.json` 中的 `private: true` 同时防止误发布到 npm。
