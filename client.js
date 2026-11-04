@@ -840,7 +840,7 @@ window.__ModuleLoader__.load({
 				ctx.effect(() => installStyles(), "file-library: stylesheet")
 				const t = ctx.locale.bind(NS)
 				ctx.effect(() => ctx.locale.register(NS, {
-					zh: {
+					zh: {"home.files":"文件",
 						"panel": "文件库", "panel.aria": "打开文件库", "title": "文件库",
 						"subtitle": "所有曾输入进 DeepSeek Harness 的文件",
 						"search.placeholder": "搜索文件名、路径或会话",
@@ -879,7 +879,8 @@ window.__ModuleLoader__.load({
 						"copy.done": "Copied", "attach.hint": "Add from library", "attach.title": "Add from library", "attach.empty": "The library is empty",
 						"attach.menuDescription": "Pick a file you already uploaded",
 						"attach.selected": "{count} selected", "attach.add": "Add",
-						"attach.notSupported": "This composer cannot take library files directly.",
+						"home.files":"Files",
+                        "attach.notSupported": "This composer cannot take library files directly.",
 						"attach.done": "Added to the composer", "attach.partial": "Some files were added; unreadable files were skipped", "attach.busy": "The composer is sending; try again in a moment", "attach.failed": "Could not add the files; try again",
 						"count.items": "{count} files", "count.copies": "{count} copies",
 						"detail.title": "File details", "detail.sessions": "Usage", "scan.info": "Scanned at {time}", "sidebar.more": "More",
@@ -935,7 +936,13 @@ window.__ModuleLoader__.load({
 					}), "file-library: composer menu row")
 				}
 
-				// The dropdown lives inside the composer card, above the editor.
+				// Direct home entry, sharing the existing picker and real draft attachments.
+                function HomeFiles({sessionId,t}) {
+                    const state=usePickerStore();
+                    return h('button',{type:'button',className:'dsh-home-files','aria-label':t('home.files'),'aria-haspopup':'dialog','aria-expanded':state.open&&state.sessionId===sessionId,disabled:!sessionId,onClick:()=>{if(state.open&&state.sessionId===sessionId)closePicker();else openPicker(sessionId);}},h(FileIcon,{size:16}),t('home.files'));
+                }
+                ctx.slots.inject('conversation.hero.options',()=>ctx.slots.register({name:'conversation.hero.options',id:'home-files',order:0,locale:NS},HomeFiles));
+                // The dropdown lives inside the composer card, above the editor.
 				const ComposerEntry = (props) => h(ComposerLibraryOverlay, { ...props, attach })
 				ctx.slots.inject("conversation.input.overlay", () => ctx.slots.register({
 					name: "conversation.input.overlay",

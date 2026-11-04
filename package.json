@@ -1,9 +1,9 @@
 {
   "name": "@local/dsh-file-library",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "File Library: every file ever uploaded into DeepSeek Harness, its read-only original path and its workspace copies, with manual upload and composer integration.",
+  "description": "File library with direct home-composer access and existing draft attachment integration.",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
