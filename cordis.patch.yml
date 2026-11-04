@@ -1,0 +1,4 @@
+- insert:
+    - id: file-library
+      name: '@local/dsh-file-library'
+      config: {}

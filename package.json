@@ -1,0 +1,49 @@
+{
+  "name": "@local/dsh-file-library",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "File Library: every file ever uploaded into DeepSeek Harness, its read-only original path and its workspace copies, with manual upload and composer integration.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-commands"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gazesphotograph/dsh-file-library.git"
+  },
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "scripts": {
+    "test": "node --test tests/client-regression.test.mjs tests/host-regression.test.mjs tests/palette-regression.test.mjs",
+    "test:helpers": "node tests/harness.mjs"
+  }
+}
